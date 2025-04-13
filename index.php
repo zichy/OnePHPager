@@ -20,12 +20,13 @@ define('MAXFILESIZE', '10000000');
 // Do not change
 define('SYSFOLDER', '_onephpager/');
 define('FILEFOLDER', 'files/');
+$self = $_SERVER['PHP_SELF'];
 
 // Classes
 class Sys
 {
 	public function goTo($path = false) {
-		header('Location: '.$_SERVER['PHP_SELF'].($path ? $path : ''));
+		header('Location: '.$self.($path ? $path : ''));
 	}
 
 	public function createFolder($folder)
@@ -477,7 +478,7 @@ summary {
 </head><body id="<?= !$account->loggedin() ? 'login' : 'admin' ?>">
 <?php if (!$account->loggedin()): ?>
 
-	<form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
+	<form action="<?= $self ?>" method="post">
 		<h1>OnePHPager</h1>
 		<div>
 			<label for="username">Username</label>
@@ -487,7 +488,7 @@ summary {
 			<label for="password">Password</label>
 			<input type="password" id="password" name="password" autocomplete="current-password" required>
 		</div>
-		<p><button type="submit" name="login">Login</button> or <a href="<?= $_SERVER['PHP_SELF'] ?>">go back</a>
+		<p><button type="submit" name="login">Login</button> or <a href="<?= $self ?>">go back</a>
 	</form>
 
 <?php else: ?>
@@ -496,11 +497,11 @@ summary {
 		<nav>
 			<ul>
 			<?php foreach ($pages as $page): ?>
-				<li><a href="<?= $_SERVER['PHP_SELF'] ?>?admin=<?= $page ?>" <?= $admin == $page ? 'aria-current="page"' : '' ?>><?= ucwords($page) ?></a>
+				<li><a href="<?= $self ?>?admin=<?= $page ?>" <?= $admin == $page ? 'aria-current="page"' : '' ?>><?= ucwords($page) ?></a>
 			<?php endforeach ?>
 			</ul>
 		</nav>
-		<form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
+		<form action="<?= $self ?>" method="post">
 			<button type="submit" name="logout">Logout</button>
 		</form>
 	</header>
@@ -512,7 +513,7 @@ summary {
 
 	<?php break; case 'edit': ?>
 
-		<form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
+		<form action="<?= $self ?>" method="post">
 			<textarea name="content" spellcheck="false" aria-label="HTML content" placeholder="<!DOCTYPE html>"><?= $content->get() ?></textarea>
 			<p>
 				<time datetime="<?= date('Y-m-d H:i:s', $content->get('date')) ?>"><?= date('d M Y, H:i', $content->get('date')) ?></time>
@@ -522,7 +523,7 @@ summary {
 
 	<?php break; case 'files': ?>
 
-		<form action="<?= $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
+		<form action="<?= $self ?>" method="post" enctype="multipart/form-data">
 			<input type="file" name="file" aria-label="File" accept="<?= implode(',', constant('ALLOWEDFILETYPES')) ?>" required>
 			<button type="submit" name="upload-file">Upload</button>
 		</form>
@@ -548,7 +549,7 @@ summary {
 						<td><a href="<?= $file['path'] ?>" title="<?= $file['date'] ?>" target="_blank"><?= $file['file'] ?></td>
 						<td><?= $file['sizeFormat'] ?></td>
 						<td>
-							<form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
+							<form action="<?= $self ?>" method="post">
 								<input type="hidden" name="path" value="<?= $file['path'] ?>">
 								<button type="submit" name="delete-file">Delete</button>
 							</form>
