@@ -267,7 +267,7 @@ if (!isset($admin)) {
 <?php if (constant('DARKMODE')): ?>
 <meta name="color-scheme" content="light dark">
 <?php endif ?>
-<title><?= $account->loggedin() ? ucwords($admin) . ' / ' : '' ?>OnePHPager</title>
+<title><?= $account->loggedin() ? ucwords($admin).' / ' : '' ?>OnePHPager</title>
 <style>
 :root {
 	--sans: ui-sans-serif, sans-serif;
