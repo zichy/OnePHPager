@@ -2,10 +2,7 @@
 
 OnePHPager is a 13 KB single-file interface to edit one static HTML page.
 
-## Additional Features
-
-* File uploads
-* Dark mode
+(Optionally, you can also upload files. And there’s an ugly dark mode.)
 
 ## Requirements
 
