@@ -430,6 +430,8 @@ nav a[aria-current] {
 	padding: 1rem 2rem;
 	margin-block: 0;
 	border-top-left-radius: 0.5rem;
+	border-top: 2px solid ButtonFace;
+	border-left: 2px solid ButtonFace;
 }
 
 #files {
