@@ -5,8 +5,8 @@
 | (_) || ' \ / -_)|  _/| __ ||  _// _` |/ _` |/ -_)| '_|
  \___/ |_||_|\___||_|  |_||_||_|  \__,_|\__, |\___||_|  
                                         |___/           
-	SPDX-License-Identifier: MIT
-	SPDX-FileCopyrightText: Copyright (c) 2025 zichy
+SPDX-License-Identifier: MIT
+SPDX-FileCopyrightText: Copyright (c) 2025 zichy
 */
 
 // Config
@@ -274,23 +274,19 @@ if (!isset($admin)) {
 	--sans: ui-sans-serif, sans-serif;
 	--mono: ui-monospace, monospace;
 }
-
 * {
 	box-sizing: border-box;
 	-webkit-font-smoothing: antialiased;
 	text-rendering: optimizeLegibility;
 }
-
 html {
 	font-size: 62.5%;
 }
-
 h1 {
 	color: LinkText;
 	font-size: 1em;
 	margin: 0;
 }
-
 a:any-link {
 	color: LinkText;
 }
@@ -298,7 +294,6 @@ a:any-link {
 a:hover {
 	color: CanvasText;
 }
-
 body {
 	background-color: Canvas;
 	color: CanvasText;
@@ -306,27 +301,21 @@ body {
 	min-width: 375px;
 	margin: 0;
 }
-
 .inline {
 	all: unset;
 }
-
 .inline li {
 	display: inline;
 }
-
 .inline li:not(:last-child)::after {
 	content: ', ';
 }
-
 label {
 	display: block;
 }
-
 button {
 	cursor: pointer;
 }
-
 #login form {
 	display: grid;
 	justify-items: start;
@@ -337,7 +326,6 @@ button {
 #login p {
 	margin-block: 0;
 }
-
 header {
 	background-color: LinkText;
 	color: Canvas;
@@ -346,7 +334,6 @@ header {
 	align-items: center;
 	padding-inline: 2rem;
 }
-
 nav ul {
 	display: flex;
 	list-style-type: none;
@@ -354,7 +341,6 @@ nav ul {
 	margin: 0;
 	border-top: 1rem solid LinkText;
 }
-
 nav a:any-link {
 	color: Canvas;
 	font-weight: bold;
@@ -364,40 +350,33 @@ nav a:any-link {
 	border-top-left-radius: 0.5rem;
 	border-top-right-radius: 0.5rem;
 }
-
 nav a:hover {
 	text-decoration: underline;
 	text-decoration-style: wavy;
 }
-
 nav a[aria-current] {
 	background-color: Canvas;
 	color: CanvasText;
 	text-decoration: none;
 	cursor: default;
 }
-
 #admin {
 	display: grid;
 	height: 100vh;
 	grid-template-rows: auto 1fr;
 }
-
 #preview {
 	display: flex;
 	padding: 2rem;
 }
-
 #preview iframe {
 	flex-grow: 1;
 	border: 0;
 }
-
 #edit form {
 	display: grid;
 	height: 100%;
 }
-
 #edit textarea {
 	background:
 		linear-gradient(Canvas 30%, rgba(255, 255, 255, 0)) center top,
@@ -415,11 +394,9 @@ nav a[aria-current] {
 	-webkit-overflow-scrolling: touch;
 	overflow-scrolling: touch;
 }
-
 #edit textarea:focus {
 	outline: none;
 }
-
 #edit p {
 	background-color: Canvas;
 	display: flex;
@@ -433,45 +410,36 @@ nav a[aria-current] {
 	border-top: 2px solid ButtonFace;
 	border-left: 2px solid ButtonFace;
 }
-
 #files {
 	display: grid;
 	row-gap: 2rem;
 	align-content: start;
 	padding: 2rem;
 }
-
 #files p {
 	margin-block: 0;
 }
-
 table {
 	width: 100%;
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-
 :is(thead, tbody) tr {
 	position: relative;
 	border-bottom: 2px solid ButtonFace;
 }
-
 :is(th, td) {
 	padding-block: 0.5em;
 }
-
 th {
 	text-align: left;
 }
-
 thead th {
 	padding-block-start: 0;
 }
-
 td a {
 	font-weight: bold;
 }
-
 summary {
 	color: LinkText;
 	cursor: pointer;
