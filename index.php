@@ -194,7 +194,7 @@ $sys->createFolder(constant('SYSFOLDER'));
 if (!$content->get('date')) {
 	$save = new stdClass();
 	$save->date = time();
-	$save->content = htmlspecialchars('<!DOCTYPE html><title>Hello World</title><h1>Hello World</h1><p><a href="?admin" target="_blank">Edit this page</a>');
+	$save->content = htmlspecialchars('<!DOCTYPE html><title>Hello World</title><h1>Hello World</h1>');
 	$content->save($save);
 	$sys->goTo();
 }
