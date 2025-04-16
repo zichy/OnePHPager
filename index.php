@@ -139,7 +139,7 @@ class Account
 	public function login($username, $password) {
 		if (hash_equals(constant('USERNAME'), $username) &&
 			hash_equals(constant('PASSWORD'), $password)) {
-			$_SESSION['urmel'] = true;
+			$_SESSION['onephpager'] = true;
 			$this->createCookie();
 		} else {
 			die('Incorrect credentials');
@@ -147,10 +147,10 @@ class Account
 	}
 
 	public function loggedin() {
-		if (isset($_SESSION['urmel']) &&
-			$_SESSION['urmel'] === true &&
-			isset($_COOKIE['urmel']) &&
-			$_COOKIE['urmel'] === $this->getCookie()) {
+		if (isset($_SESSION['onephpager']) &&
+			$_SESSION['onephpager'] === true &&
+			isset($_COOKIE['onephpager']) &&
+			$_COOKIE['onephpager'] === $this->getCookie()) {
 			return true;
 		}
 	}
@@ -165,13 +165,13 @@ class Account
 		$identifier = bin2hex(random_bytes(64));
 		file_put_contents($path, $identifier);
 		chmod($path, 0600);
-		setcookie('urmel', $identifier, time() + (3600 * 24 * 30));
+		setcookie('onephpager', $identifier, time() + (3600 * 24 * 30));
 	}
 
 	public function deleteCookie() {
 		$path = constant('SYSFOLDER').'cookie';
 		unlink($path);
-		setcookie('urmel', '', time() - (3600 * 24 * 30));
+		setcookie('onephpager', '', time() - (3600 * 24 * 30));
 	}
 
 	public function getCookie() {
