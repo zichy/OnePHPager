@@ -59,8 +59,6 @@ $content = new Content();
 
 class Files
 {
-	public $folder = 'files/';
-
 	public function list() {
 		$files = preg_grep('/^([^.])/', scandir(constant('FILEFOLDER')));
 
