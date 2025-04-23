@@ -105,7 +105,7 @@ class Files
 		}
 	}
 
-	public function formatSize($bytes, $precision = 2) {
+	private function formatSize($bytes, $precision = 2) {
 		$units = array('B', 'KB', 'MB', 'GB', 'TB');
 		$bytes = max($bytes, 0); 
 		$pow = floor(($bytes ? log($bytes) : 0) / log(1000)); 
@@ -158,7 +158,7 @@ class Account
 		$this->deleteCookie();
 	}
 
-	public function createCookie() {
+	private function createCookie() {
 		$path = constant('SYSFOLDER').'cookie';
 		$identifier = bin2hex(random_bytes(64));
 		file_put_contents($path, $identifier);
@@ -166,13 +166,13 @@ class Account
 		setcookie('onephpager', $identifier, time() + (3600 * 24 * 30));
 	}
 
-	public function deleteCookie() {
+	private function deleteCookie() {
 		$path = constant('SYSFOLDER').'cookie';
 		unlink($path);
 		setcookie('onephpager', '', time() - (3600 * 24 * 30));
 	}
 
-	public function getCookie() {
+	private function getCookie() {
 		$path = constant('SYSFOLDER').'cookie';
 		return file_exists($path) ? file_get_contents($path) : false;
 	}
