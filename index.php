@@ -112,7 +112,7 @@ class Files
 		$pow = min($pow, count($units) - 1);
 		$bytes /= pow(1000, $pow);
 
-		return round($bytes, $precision).' '.$units[$pow]; 
+		return round($bytes, $precision).'&nbsp;'.$units[$pow]; 
 	}
 
 	public function totalSize() {
@@ -296,15 +296,6 @@ body {
 	min-width: 375px;
 	margin: 0;
 }
-.inline {
-	all: unset;
-}
-.inline li {
-	display: inline;
-}
-.inline li:not(:last-child)::after {
-	content: ', ';
-}
 label {
 	display: block;
 }
@@ -414,6 +405,19 @@ nav a[aria-current] {
 #files p {
 	margin-block: 0;
 }
+.inline {
+	all: unset;
+}
+.inline li {
+	display: inline;
+}
+.inline li:not(:last-child)::after {
+	content: ', ';
+}
+summary {
+	color: LinkText;
+	cursor: pointer;
+}
 table {
 	width: 100%;
 	border-collapse: collapse;
@@ -424,7 +428,13 @@ table {
 	border-bottom: 2px solid ButtonFace;
 }
 :is(th, td) {
-	padding-block: 0.5em;
+	padding: 0.5em;
+}
+:is(th, td):first-child {
+	padding-inline-start: 0;
+}
+:is(th, td):last-child {
+	padding-inline-end: 0;
 }
 th {
 	text-align: left;
@@ -435,9 +445,12 @@ thead th {
 td a {
 	font-weight: bold;
 }
-summary {
-	color: LinkText;
-	cursor: pointer;
+.filename {
+	width: 100%;
+	max-width: 25rem;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
 }
 </style>
 </head><body id="<?= !$account->loggedin() ? 'login' : 'admin' ?>">
@@ -511,7 +524,7 @@ summary {
 			<tbody>
 				<?php foreach ($files->list() as $file): ?>
 					<tr>
-						<td><a href="<?= $file['path'] ?>" title="<?= $file['date'] ?>" target="_blank"><?= $file['file'] ?></td>
+						<td class="filename"><a href="<?= $file['path'] ?>" title="<?= $file['date'] ?>" target="_blank"><?= $file['file'] ?></td>
 						<td><?= $file['sizeFormat'] ?></td>
 						<td>
 							<form action="<?= $self ?>" method="post">
