@@ -227,14 +227,11 @@ if ($account->loggedin()) {
 		$sys->goTo('?admin');
 	}
 
-	// Edit page
+	// Save content
 	if (isset($_POST['edit'])) {
-		// Get data
 		$save = new stdClass();
 		$save->date = time();
 		$save->content = htmlspecialchars($_POST['content']);
-
-		// Save page
 		$content->save($save);
 		$sys->goTo('?admin=edit');
 	}
