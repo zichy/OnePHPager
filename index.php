@@ -9,7 +9,7 @@ define('USERNAME', 'admin');
 define('PASSWORD', 'admin');
 define('DARKMODE', false);
 define('FILES', false);
-define('ALLOWEDFILETYPES', array('image/apng', 'image/avif', 'image/gif', 'image/jpeg', 'image/png', 'image/svg+xml', 'image/webp', 'video/webm', 'audio/webm', 'audio/mpeg', 'audio/ogg', 'audio/mpeg', 'video/mp4', 'video/ogg', 'text/plain', 'text/markdown', 'application/pdf', 'application/zip', 'application/vnd.rar', 'application/x-7z-compressed', 'font/otf', 'font/ttf', 'font/woff2'));
+define('ALLOWEDFILETYPES', array('image/apng', 'image/avif', 'image/heif', 'image/gif', 'image/jpeg', 'image/png', 'image/svg+xml', 'image/webp', 'video/webm', 'audio/webm', 'audio/mpeg', 'audio/ogg', 'audio/mpeg', 'video/mp4', 'video/ogg', 'text/plain', 'text/markdown', 'application/pdf', 'application/zip', 'application/vnd.rar', 'application/x-7z-compressed', 'font/otf', 'font/ttf', 'font/woff2'));
 define('MAXFILESIZE', '10000000');
 
 // Do not change
