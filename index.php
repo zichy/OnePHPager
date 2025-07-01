@@ -536,27 +536,26 @@ td a {
 				</tr>
 			</tfoot>
 		</table>
+		<script>
+			const $form = document.querySelector('#files table form');
+			const $button = document.querySelector('[name="delete-file"]');
+			if ($form && $button) {
+				const warning = 'Do you really want to delete this file?';
+				$form.addEventListener('submit', (e) => {
+					if (e.submitter == $button) {
+						if (confirm(warning)) {
+							$form.submit();
+						} else {
+							e.preventDefault();
+						}
+					}
+				});
+			}
+		</script>
 		<?php else: ?><p>There are no files yet.<?php endif ?>
 
 	<?php break; } ?>
 	</main>
-
-	<script>
-		const $form = document.querySelector('#files table form');
-		const $button = document.querySelector('[name="delete-file"]');
-		if ($form && $button) {
-			const warning = 'Do you really want to delete this file?';
-			$form.addEventListener('submit', (e) => {
-				if (e.submitter == $button) {
-					if (confirm(warning)) {
-						$form.submit();
-					} else {
-						e.preventDefault();
-					}
-				}
-			});
-		}
-	</script>
 
 <?php endif ?>
 </body></html>
