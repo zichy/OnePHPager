@@ -446,6 +446,14 @@ td a {
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
+	position: relative;
+}
+.filename a::before {
+	content: '';
+	display: block;
+	position: absolute;
+	inset: 0;
+}
 }
 </style>
 </head><body id="<?= !$account->loggedin() ? 'login' : 'admin' ?>">
