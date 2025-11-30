@@ -388,8 +388,8 @@ nav a[aria-current] {
 	padding: 1rem 2rem;
 	margin-block: 0;
 	border-top-left-radius: 0.5rem;
-	border-top: 2px solid ButtonFace;
-	border-left: 2px solid ButtonFace;
+	border-top: 2px solid GrayText;
+	border-left: 2px solid GrayText;
 }
 #files {
 	display: grid;
@@ -401,7 +401,9 @@ nav a[aria-current] {
 	margin-block: 0;
 }
 .inline {
-	all: unset;
+	font-size: small;
+	padding-inline-start: 0;
+	margin-block: 0;
 }
 .inline li {
 	display: inline;
@@ -411,6 +413,7 @@ nav a[aria-current] {
 }
 summary {
 	color: LinkText;
+	font-weight: bold;
 	cursor: pointer;
 }
 table {
