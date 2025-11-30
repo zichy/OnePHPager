@@ -420,22 +420,19 @@ table {
 }
 :is(thead, tbody) tr {
 	position: relative;
-	border-bottom: 2px solid ButtonFace;
+	border-bottom: 2px solid GrayText;
 }
 :is(th, td) {
 	padding: 0.5em;
-}
-:is(th, td):first-child {
-	padding-inline-start: 0;
-}
-:is(th, td):last-child {
-	padding-inline-end: 0;
 }
 th {
 	text-align: left;
 }
 thead th {
 	padding-block-start: 0;
+}
+tbody tr:hover {
+	background-color: ButtonFace;
 }
 td a {
 	font-weight: bold;
@@ -454,6 +451,8 @@ td a {
 	position: absolute;
 	inset: 0;
 }
+.filesize {
+	font-size: small;
 }
 </style>
 </head><body id="<?= !$account->loggedin() ? 'login' : 'admin' ?>">
@@ -528,7 +527,7 @@ td a {
 				<?php foreach ($files->list() as $file): ?>
 					<tr>
 						<td class="filename"><a href="<?= $file['path'] ?>" title="<?= $file['date'] ?>" target="_blank"><?= $file['file'] ?></td>
-						<td><?= $file['sizeFormat'] ?></td>
+						<td class="filesize"><?= $file['sizeFormat'] ?></td>
 						<td>
 							<form action="<?= $self ?>" method="post">
 								<input type="hidden" name="path" value="<?= $file['path'] ?>">
