@@ -452,7 +452,7 @@ td a {
 <?php if (!$account->loggedin()): ?>
 
 	<form action="<?= $self ?>" method="post">
-		<h1>OnePHPager</h1>
+		<h1>Login</h1>
 		<div>
 			<label for="username">Username</label>
 			<input type="text" id="username" name="username" autocomplete="username" required>
