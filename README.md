@@ -1,18 +1,18 @@
 # OnePHPager
 
-OnePHPager is a 13 KB single-file interface to edit one static HTML page.
+Have you ever bought a domain for email, but still want to use it for a simple public website on your server?
 
-(Optionally, you can also upload files. And there’s an ugly dark mode.)
+OnePHPager is a single-file web interface for editing one static HTML page. Optionally, you can also upload files.
 
 ## Requirements
 
-* Web server with PHP
+* PHP
 
 ## Installation
 
-1. Adjust the config variables in `index.php`. You can rename the file if desired.
+1. Adjust the config in `index.php`. Optionally, you can also rename the file.
 2. Upload the file to a server.
-3. Login at `?admin` to edit the page.
+3. Login at `?admin` to edit the page, upload and delete files.
 
 ## License
 
