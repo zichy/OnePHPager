@@ -5,16 +5,17 @@ SPDX-FileCopyrightText: Copyright (c) 2025 zichy
 */
 
 // Config
-define('USERNAME', 'admin');
-define('PASSWORD', 'admin');
-define('DARKMODE', false);
-define('FILES', false);
-define('ALLOWEDFILETYPES', array('image/apng', 'image/avif', 'image/heif', 'image/gif', 'image/jpeg', 'image/png', 'image/svg+xml', 'image/webp', 'video/webm', 'audio/webm', 'audio/mpeg', 'audio/ogg', 'audio/mpeg', 'video/mp4', 'video/ogg', 'text/plain', 'text/markdown', 'application/pdf', 'application/zip', 'application/vnd.rar', 'application/x-7z-compressed', 'font/otf', 'font/ttf', 'font/woff2'));
-define('MAXFILESIZE', '10000000');
+$config = [
+	'username' => 'admin',
+	'password' => 'admin',
+	'darkmode' => false,
+	'files' => false,
+	'fileTypes' => ['image/apng', 'image/avif', 'image/heif', 'image/gif', 'image/jpeg', 'image/png', 'image/svg+xml', 'image/webp', 'video/webm', 'audio/webm', 'audio/mpeg', 'audio/ogg', 'audio/mpeg', 'video/mp4', 'video/ogg', 'text/plain', 'text/markdown', 'application/pdf', 'application/zip', 'application/vnd.rar', 'application/x-7z-compressed', 'font/otf', 'font/ttf', 'font/woff2'],
+	'fileSize' => '10000000',
+	'sysFolder' => '_onephpager/',
+	'fileFolder' => 'files/',
+];
 
-// Do not change
-define('SYSFOLDER', '_onephpager/');
-define('FILEFOLDER', 'files/');
 $self = $_SERVER['PHP_SELF'];
 
 // Classes
@@ -38,13 +39,15 @@ class Content
 	public $file = 'content.json';
 
 	public function save($content) {
-		$path = constant('SYSFOLDER').$this->file;
+		global $config;
+		$path = $config['sysFolder'].$this->file;
 		file_put_contents($path, json_encode($content));
 		chmod($path, 0600);
 	}
 
 	public function get($value = 'content') {
-		$path = constant('SYSFOLDER').$this->file;
+		global $config;
+		$path = $config['sysFolder'].$this->file;
 		if ($path && $value) {
 			return json_decode(file_get_contents($path))->$value;
 		}
@@ -55,15 +58,16 @@ $content = new Content();
 class Files
 {
 	public function list() {
-		$files = preg_grep('/^([^.])/', scandir(constant('FILEFOLDER')));
+		global $config;
+		$files = preg_grep('/^([^.])/', scandir($config['fileFolder']));
 
 		if ($files) {
 			$list = array();
 
 			foreach ($files as $file) {
-				$path = constant('FILEFOLDER').$file;
+				$path = $config['fileFolder'].$file;
 				$type = mime_content_type($path);
-				$types = constant('ALLOWEDFILETYPES');
+				$types = $config['fileTypes'];
 
 				if (in_array($type, $types)) {
 					$size = fileSize($path);
@@ -79,16 +83,17 @@ class Files
 	}
 
 	public function upload() {
-		$maxSize = constant('MAXFILESIZE');
-		$allowedTypes = constant('ALLOWEDFILETYPES');
+		global $config;
+		$maxSize = $config['fileSize'];
+		$types = $config['fileTypes'];
 		$file = $_FILES['file'];
 
 		if (!empty($file) && $file['error'] == UPLOAD_ERR_OK) {
 			$type = mime_content_type($file['tmp_name']);
 			$size = filesize($file['tmp_name']);
 
-			if (in_array($type, $allowedTypes) && ($size <= $maxSize)) {
-				$path = constant('FILEFOLDER').$file['name'];
+			if (in_array($type, $types) && ($size <= $maxSize)) {
+				$path = $config['fileFolder'].$file['name'];
 				move_uploaded_file($file['tmp_name'], $path);
 			}
 		}
@@ -130,8 +135,9 @@ $files = new Files();
 class Account
 {
 	public function login($username, $password) {
-		if (hash_equals(constant('USERNAME'), $username) &&
-			hash_equals(constant('PASSWORD'), $password)) {
+		global $config;
+		if (hash_equals($config['username'], $username) &&
+			hash_equals($config['password'], $password)) {
 			$_SESSION['onephpager'] = true;
 			$this->createCookie();
 		} else {
@@ -154,7 +160,8 @@ class Account
 	}
 
 	private function createCookie() {
-		$path = constant('SYSFOLDER').'cookie';
+		global $config;
+		$path = $config['sysFolder'].'cookie';
 		$identifier = bin2hex(random_bytes(64));
 		file_put_contents($path, $identifier);
 		chmod($path, 0600);
@@ -162,13 +169,15 @@ class Account
 	}
 
 	private function deleteCookie() {
-		$path = constant('SYSFOLDER').'cookie';
+		global $config;
+		$path = $config['sysFolder'].'cookie';
 		unlink($path);
 		setcookie('onephpager', '', time() - (3600 * 24 * 30));
 	}
 
 	private function getCookie() {
-		$path = constant('SYSFOLDER').'cookie';
+		global $config;
+		$path = $config['sysFolder'].'cookie';
 		return file_exists($path) ? file_get_contents($path) : false;
 	}
 
@@ -181,7 +190,7 @@ class Account
 $account = new Account();
 
 // Create system folder
-$sys->createFolder(constant('SYSFOLDER'));
+$sys->createFolder($config['sysFolder']);
 
 // Create initial content
 if (!$content->get('date')) {
@@ -209,7 +218,7 @@ if ($account->loggedin()) {
 
 	// Page routing
 	$pages = ['preview', 'edit'];
-	if (constant('FILES')) {
+	if ($config['files']) {
 		$pages[] = 'files';
 	}
 	if (empty($admin) || !in_array($admin, $pages)) {
@@ -232,8 +241,8 @@ if ($account->loggedin()) {
 	}
 
 	// Files
-	if (constant('FILES')) {
-		$sys->createFolder(constant('FILEFOLDER'));
+	if ($config['files']) {
+		$sys->createFolder($config['fileFolder']);
 
 		// Upload file
 		if (isset($_POST['upload-file'])) {
@@ -255,7 +264,7 @@ if (!isset($admin)) {
 <!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<?php if (constant('DARKMODE')): ?>
+<?php if ($config['darkmode']): ?>
 <meta name="color-scheme" content="light dark">
 <?php endif ?>
 <title><?= $account->loggedin() ? ucwords($admin).' / ' : '' ?>OnePHPager</title>
@@ -507,13 +516,13 @@ td a {
 	<?php break; case 'files': ?>
 
 		<form action="<?= $self ?>" method="post" enctype="multipart/form-data">
-			<input type="file" name="file" aria-label="File" accept="<?= implode(',', constant('ALLOWEDFILETYPES')) ?>" required>
+			<input type="file" name="file" aria-label="File" accept="<?= implode(',', $config['fileTypes']) ?>" required>
 			<button type="submit" name="upload-file">Upload</button>
 		</form>
 		<details>
 			<summary>Allowed file types</summary>
 			<ul class="inline">
-			<?php foreach (constant('ALLOWEDFILETYPES') as $type): ?>
+			<?php foreach ($config['fileTypes'] as $type): ?>
 				<li><?= $type ?></li>
 			<?php endforeach ?>
 			</ul>
