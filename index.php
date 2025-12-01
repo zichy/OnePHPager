@@ -8,7 +8,6 @@ SPDX-FileCopyrightText: Copyright (c) 2025 zichy
 $config = [
 	'username' => 'admin',
 	'password' => 'admin',
-	'darkmode' => false,
 	'files' => false,
 	'fileTypes' => ['image/apng', 'image/avif', 'image/heif', 'image/gif', 'image/jpeg', 'image/png', 'image/svg+xml', 'image/webp', 'video/webm', 'audio/webm', 'audio/mpeg', 'audio/ogg', 'audio/mpeg', 'video/mp4', 'video/ogg', 'text/plain', 'text/markdown', 'application/pdf', 'application/zip', 'application/vnd.rar', 'application/x-7z-compressed', 'font/otf', 'font/ttf', 'font/woff2'],
 	'fileSize' => '10000000',
@@ -264,9 +263,6 @@ if (!isset($admin)) {
 <!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<?php if ($config['darkmode']): ?>
-<meta name="color-scheme" content="light dark">
-<?php endif ?>
 <title><?= $account->loggedin() ? ucwords($admin).' / ' : '' ?>OnePHPager</title>
 <style>
 :root {
